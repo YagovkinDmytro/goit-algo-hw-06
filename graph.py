@@ -2,6 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from dfs_iterative import dfs_iterative
 from bfs_iterative import bfs_iterative
+from dijkstra import dijkstra
 
 G = nx.Graph()
 
@@ -37,13 +38,20 @@ betweenness_centrality = nx.betweenness_centrality(G)
 print("Посередництво вузла:\n", betweenness_centrality)
 
 adj_list = {node: dict(G[node]) for node in G.nodes}
-print("Cписок суміжності:")
-print(adj_list)
+print("Cписок суміжності:\n", adj_list)
 
 print("Алгоритму DFS:")
 dfs_iterative(adj_list, 'Ужгород')
 print("\nАлгоритму BFS:")
 bfs_iterative(adj_list, 'Ужгород')
+
+# Застосування алгоритму Дейкстри
+shortest_paths = nx.single_source_dijkstra_path(G, source='Запоріжжя')
+shortest_path_lengths = nx.single_source_dijkstra_path_length(G, source='Запоріжжя')
+
+print(shortest_paths)  # виведе найкоротші шляхи від вузла 'N' до всіх інших вузлів
+print(shortest_path_lengths)  # виведе довжини найкоротших шляхів від вузла 'N' до всіх інших вузлів
+dijkstra(adj_list, 'Запоріжжя')
 
 pos = nx.spring_layout(G)
 options = {
